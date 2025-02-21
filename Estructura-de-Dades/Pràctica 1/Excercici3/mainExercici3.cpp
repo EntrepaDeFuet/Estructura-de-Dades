@@ -39,6 +39,7 @@ int main(){
         cin >> tria;
         switch(tria){
             case 1: 
+                cout << "Fins la propera " << endl;
                 cntrl = false;
                 break;
             case 2:
