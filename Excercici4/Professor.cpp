@@ -1,20 +1,20 @@
 #include <iostream>
-#include "Estudiant.h"
+#include "Professor.h"
 #include <stdexcept>
 
 using namespace std;
 
-Estudiant::Estudiant()
+Professor::Professor()
 {
 
 }
 
-Estudiant::Estudiant(string nom, int any, int matricules){
+Professor::Professor(string nom, int any){
     this->nom = nom;
     this->any = any;
-    this->matricules = matricules;
+
 }
-int Estudiant::getEdat(){
+int Professor::getEdat(){
     try{
         return 2025 - this->any;
     } catch(const std::invalid_argument& ex ){
@@ -23,9 +23,8 @@ int Estudiant::getEdat(){
     }
 
 }
-void Estudiant::print(){
+void Professor::print(){
     cout << "Nom: " << this->nom << "\n";
     cout << "Edat: " << getEdat() << "\n";
     cout << "Any de naixement: " << any << "\n";
-    cout << "Assignatures matriculades: " << matricules << "\n";
 }
