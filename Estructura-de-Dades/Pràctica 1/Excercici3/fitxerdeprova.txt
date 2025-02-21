@@ -1,1 +1,0 @@
-Aquest fitxer es per saber si faig servir be el git
