@@ -42,8 +42,8 @@ int main(){
                 cntrl = false;
                 break;
             case 2:
+                cout << "Estudiant: " << llista.size()+1 << "\n";
                 informarEstudiant(llista);
-                cout << llista.size() << "\n";
                 break;
                 
         }
