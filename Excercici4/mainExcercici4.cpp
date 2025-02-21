@@ -21,6 +21,7 @@ int menuTriar(){
 
 
 char ProfessorVsEstudiant(){
+    cout << "Per a afegir un Professor escriu 'P' i per a afegir a un estudiant escriu 'E'. " << endl;
     char sel;
     try{
         cin >> sel;
