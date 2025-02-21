@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Estudiant.h"
+#include "Estudiant.cpp"
 using namespace std;
 
 void informarEstudiant(vector<Estudiant>& llista){
