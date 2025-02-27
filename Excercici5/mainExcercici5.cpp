@@ -14,7 +14,7 @@ int menuTriar(){
         sel = std::stoi(resultat);
     } 
     catch(std::invalid_argument& e){
-        return 3;
+        return 4;
     }
     catch(std::exception& e){
         return 1000;
