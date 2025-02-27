@@ -1,22 +1,19 @@
 #include <iostream>
 using namespace std;
 
-class Estudiant
+class Professor
 {
 private:
     string nom;
     int any;
-    int matricules;
+
 
 public:
-    Estudiant();
+    Professor();
     void setNom(string nom);
     void setAny(int edat);
-    void setMatricules(int matricules);
-    Estudiant(string, int , int);
+    Professor(string, int );
     int getEdat();
     void print();
 
 };
-
-
