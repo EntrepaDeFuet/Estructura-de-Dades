@@ -6,15 +6,20 @@ using namespace std;
 
 int menuTriar(){
 
-    int resultat;
-
-    cin >> resultat;
-     if(cin.fail()) {
-         cin.clear();
-         return 3;
+    string resultat;
+    int sel;
+    try{
+        cin >> resultat;
+        sel = std::stoi(resultat);
+    } 
+    catch(std::invalid_argument& e){
+        return 3;
+    }
+    catch(std::exception& e){
+        return 1000;
     }
 
-    return resultat;
+    return sel;
 }
 
 
@@ -23,7 +28,7 @@ char ProfessorVsEstudiant(){
     char sel;
     try{
         cin >> sel;
-    }catch(std::invalid_argument){
+    }catch(std::invalid_argument& e){
         return 'a';
     }
     return sel;
