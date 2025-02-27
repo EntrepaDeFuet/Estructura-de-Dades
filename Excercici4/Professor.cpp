@@ -45,4 +45,5 @@ void Professor::print(){
     cout << "Nom: " << this->nom << "\n";
     cout << "Edat: " << getEdat() << "\n";
     cout << "Any de naixement: " << any << "\n";
+    cout << "--------------------------------------------" << endl;
 }

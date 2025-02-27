@@ -13,13 +13,24 @@ int menuTriar(){
         sel = std::stoi(resultat);
     } 
     catch(std::invalid_argument& e){
-        return 3;
+        return 4;
     }
     catch(std::exception& e){
         return 1000;
     }
 
     return sel;
+}
+
+void resumPersones(vector <Estudiant>&  estudiants, vector <Professor>& professors){
+    cout << "Lllista d'Estudiants: " << endl;
+    for (int i =0 ; i < estudiants.size(); i++){
+        estudiants[i].print();
+    }
+    cout << "Llista de Professors: " << endl;
+    for (int i = 0; i < professors.size(); i++){
+        professors[i].print();
+    }
 }
 
 
@@ -72,7 +83,7 @@ int main(){
 
     bool cntrl = true;
     int menu;
-    vector <string> opcions = {"Sortir","Afegir Persona"};
+    vector <string> opcions = {"Sortir","Afegir Persona","Resum persones."};
     vector <Estudiant> llistaEstudiants(0);
     vector <Professor> llistaProfessors(0);
 
@@ -107,6 +118,11 @@ int main(){
                         cout << "No t'he entès." << endl;
 
                 }
+                break;
+
+            case 3:
+
+            resumPersones(llistaEstudiants,llistaProfessors);
                 break;
 
             default:

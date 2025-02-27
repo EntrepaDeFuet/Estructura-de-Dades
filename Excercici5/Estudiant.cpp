@@ -55,4 +55,5 @@ void Estudiant::print(){
     cout << "Edat: " << getEdat() << "\n";
     cout << "Any de naixement: " << any << "\n";
     cout << "Assignatures matriculades: " << matricules << "\n";
+    cout << "--------------------------------------------" << endl;
 }
