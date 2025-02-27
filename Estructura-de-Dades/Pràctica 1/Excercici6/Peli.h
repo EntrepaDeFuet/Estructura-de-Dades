@@ -11,7 +11,7 @@ class Peli{
         int peliId, directorId, durada;
         float valoracio;
         string nom;
-        
+
         //Setters (estan en privat, doncs només poden modificar les variables a partir del constructor.):
         void setPeliId(int id);
         void setDirectorId(int id);
@@ -29,7 +29,7 @@ class Peli{
         float getValoracio();
         string getNom();
 
-        //Setter valoracio és l'únic que té sentit que variï
+        //Setter (valoracio és l'únic que té sentit que variï):
         void setValoracio(float valoracio);
 
         //Altres:
