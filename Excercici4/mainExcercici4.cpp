@@ -8,12 +8,10 @@ int menuTriar(){
 
     int resultat;
 
-    try{
     cin >> resultat;
-    } 
-
-    catch(std::invalid_argument){
-        return 3;
+     if(cin.fail()) {
+         cin.clear();
+         return 3;
     }
 
     return resultat;

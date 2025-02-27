@@ -9,11 +9,29 @@ Professor::Professor()
 
 }
 
-Professor::Professor(string nom, int any){
+void Professor::setNom(string nom){
     this->nom = nom;
-    this->any = any;
-
 }
+
+void Professor::setAny(int any){
+    if (any > 0 && any < 2025){
+        this->any =any;
+    } else{
+        throw invalid_argument("Any invàlid, recorda que els anys han de ser possitius i inferiors a 2025!");
+    }
+}
+
+
+Professor::Professor(string nom, int any){
+    try{
+    this->setAny(any);
+    } catch (invalid_argument &er){
+        cout << er.what() << endl;
+    }
+    this->setNom(nom);
+}
+
+
 int Professor::getEdat(){
     try{
         return 2025 - this->any;

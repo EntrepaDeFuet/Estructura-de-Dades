@@ -10,6 +10,8 @@ private:
 
 public:
     Professor();
+    void setNom(string nom);
+    void setAny(int edat);
     Professor(string, int );
     int getEdat();
     void print();
