@@ -31,11 +31,13 @@ class Director
         int getGenere();
         int getDirectorId();
         string getNom();
+        int getNumeroDePelis();
 
         //Altres:
         void addPeli(int id, int director, int duracio, float puntuacio, string titol);
         void removePeli(int id);
-        void prinPelis();
+        void printPelis();
+        void print();
 
 };
 

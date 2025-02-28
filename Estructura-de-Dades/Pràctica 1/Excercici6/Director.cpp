@@ -54,6 +54,42 @@ void Director::removePeli(int id){
         pelis.erase(pelis.begin()+index);
 
     } else {
-        cout << "No s'ha trobat cap pel·licula amb aquesta ID, ho sentim." << endl;
+        cout << "No s'ha trobat cap pel·licula amb aquesta ID i aques director, ho sentim." << endl;
+    }
+}
+
+int Director::getNumeroDePelis(){
+    return this->pelis.size();
+}
+
+void Director::print(){
+
+    string genere;
+
+    switch (this->getGenere())
+    {
+    case 0:
+        genere = "No binari ";
+        break;
+    
+    case 1:
+        genere = "Dona ";
+        break;
+    case 2:
+        genere = "Home ";
+        break;
+
+    }
+
+    cout << "Nom del director: " << this->getNom() << " Id del director: " << this->getDirectorId() << "Genere del director: " << genere << "Pelis del director: " <<  this->getNumeroDePelis() << endl;
+    cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+}
+
+void Director::printPelis(){
+
+    cout << "Pel·licules de " << this->getNom() << " :" << endl;
+
+    for (int i = 0; i < this->getNumeroDePelis() ; i++){
+        pelis[i].print();
     }
 }
