@@ -5,6 +5,7 @@
 #include <fstream>
 using namespace std;
 
+// Aquesta funció es per verificar l'entrada que em donen del menú.
 int triaMenu(){
 
     int sel;
@@ -17,6 +18,27 @@ int triaMenu(){
     }
 
     return sel;
+}
+
+/*Aquesta funció l'he fet amb l'objectiu de verificar les Id que demano a través del main.*/
+int correctorEntrada(){
+
+    int sortida;
+    string entrada;
+    cin >> entrada;
+    //Aquest bloc comprova que no haguem passat un string en comptes d'un int. Igual que menu.
+    try{
+        sortida = std::stoi(entrada);
+    } catch (std::invalid_argument& e){
+        return 0000;
+    }
+    // Aquest altre bloc revisa que no s'enviin Id's negatives.
+    if(sortida < 0){
+        throw invalid_argument ("No es pot establir una Id com a valor negatiu. S'ha establert la Id per defecte.");
+        return 0000;
+    } else{
+        return sortida;
+    }
 }
 
 bool directorNoRepetit(vector <Director> &directors, int idActual){
@@ -47,7 +69,7 @@ void afegirDirector(vector <Director> & directors, vector <int> & pelis){
 
     if (id < 0){
 
-        throw invalid_argument("La id del director no pot ser negativa." );
+        throw invalid_argument("La id del director no pot ser negativa. S'establirà la id per defecte." );
         id = 0000;
 
     }
@@ -147,7 +169,15 @@ void afegirPeliDirectorNou(Director &director, vector <int> &pelis){
 
 }
 
-void eliminarPeli(vector <Director>& directors, vector <int>& pelis, int id){
+void retirarDeLlista(vector <int> &pelis,int id){
+    for (int i = 0; i < pelis.size() && pelis[i] != id; i++){
+        if (pelis[i]==id){
+            pelis.erase(pelis.begin()+i);
+        }
+    }
+}
+
+void eliminarPeli(vector <Director>& directors, vector <int>& pelis, int id, int peliId){
 
     bool existeixDirector = false;
     int indexDirector, indexPelis;
@@ -161,9 +191,10 @@ void eliminarPeli(vector <Director>& directors, vector <int>& pelis, int id){
 
     }
 
-    if (existeixDirector && peliRepetida(pelis, id)){
+    if (existeixDirector && peliRepetida(pelis, peliId)){
         
-        directors[indexDirector].removePeli(id);
+        directors[indexDirector].removePeli(peliId);
+        retirarDeLlista(pelis, peliId);
         
     }  else if (existeixDirector && !peliRepetida(pelis,id)){
 
@@ -206,8 +237,11 @@ void afegirPeli(vector <Director> & directors, vector <int> & pelis){
     }
 
     if (existeixDirector){
-
-        afegirPeliDirectorNou(directors[index], pelis);
+        try{
+            afegirPeliDirectorNou(directors[index], pelis);
+        } catch (invalid_argument &e){
+            cout << e.what() << endl;
+        }
 
     } else {
 
@@ -253,26 +287,118 @@ void imprimirPelis(vector <Director> & directors ,int id){
     }
 }
 
+void eliminarDirector (vector <int> & pelis, vector <Director> & directors, int directorId){
+
+    bool existeixDirector = false;
+    int indexDirector;
+
+    for (int i = 0; i < directors.size() && !existeixDirector; i++){
+        if (directors[i].getDirectorId() == directorId){    
+            indexDirector = i;
+            existeixDirector = true;
+        }
+    }
+    if (existeixDirector){
+
+        /*El codi escrit a continuació es fa per extreure les id de les pelis del vector de id's general de pelis. Mencionat al main().
+        Pot ser és l'únic punt del programa on la complexitat arriba a O(n^2).*/
+        vector <Peli> pelisDirector = directors[indexDirector].getPelis();
+
+        for (int i = 0 ; i < pelisDirector.size() ; i++){
+            retirarDeLlista(pelis,pelisDirector[i].getPeliId());
+        }
+
+        /*El codi següent ja no és degut a aquest afegit que he incorporat. Simplement esborrar el director.*/
+
+        directors.erase(directors.begin()+indexDirector);
+
+    } else {
+
+        throw invalid_argument("La id introduïda no coincideix amb la de cap director.");
+
+    }
+}
+
 int main(){
 
-    int menu;
+    int menu,comprovadorId, comprovadorIdAux;
     bool loop = true;
-    vector <Peli> pelis;
+
+    /* M'he pres la llibertat d'afegir aquesta llista d'ids de pelis, doncs trobo que amb el codi proposat tenim control sobre que no hi 
+    hagi id's repetides en el mateix director, pero dues pelis de dos directors diferents podien tindre la mateixa id, cosa que no tenia
+    sentit per a mi. Per tant he afegit aquesta llista de id's per a que no passi.
+    
+    Això fa que algunes funcions del main siguin una mica més enrevessades, però al meu parer el programa té més sentit així.*/
+    vector <int> pelis;
+
+    /*També vull comentar el fet de que pot ser per a millorar el encapsulament hagués estat bé fer una classe mUBieflix que contingués els
+    directors i les pel·licules. No ho he volgut implementar, doncs això si que s'allunyaria bastant del codi demanat.*/
     vector <Director> directors;
+    vector <string> opcions = {"Afegir director","Eliminar director","Afegir peli a un director","Eliminar peli d'un director","Imprimir directors mUBiesflix","Imprimir les pelis d'un director","Sortir"};
 
     while(loop) {
 
+        cout << "Benvingut a mUBiesflix, escull una opció del menú: "<< "\n";
+
+        for(int i = 0; i < opcions.size(); i++){
+            cout << (i+1)%7 << ". " << opcions[i] << "\n";
+        }
 
 
         menu = triaMenu();
 
         switch (menu)
         {
+        case 0:
+
+            cout << "Es finalitzarà la sessió, que tinguis bon dia." << endl;
+            loop = false;
+            
+            break;
         case 1:
-            /* code */
+
+            try{
+                afegirDirector(directors,pelis);
+            } catch(std::invalid_argument& e){
+                cout << e.what() << endl;
+            }
+            
+            break;
+        case 2:
+            cout << "Digues la Id del director a eliminar siusplau." << endl;
+            
+            try{
+                eliminarDirector(pelis,directors,comprovadorId);
+            }catch(std::invalid_argument &e){
+                cout << e.what() << endl;
+            }
+            
+            break;
+        case 3:
+            
+            afegirPeli(directors,pelis);
+            
+            break;
+        case 4:
+            cout << "Introdueix la Id del director siusplau. " << endl;
+            comprovadorId = correctorEntrada();
+            cout << "Introdueix la Id de la peli siusplau. " << endl;
+            comprovadorIdAux = correctorEntrada();
+            eliminarPeli(directors,pelis, comprovadorId, comprovadorIdAux);
+            
+            break;
+        case 5:
+
+            imprimirDirectors(directors);
+            break;
+        case 6:
+            cout << "Introdueix la Id del director siusplau. " << endl;
+            comprovadorId = correctorEntrada();
+            imprimirPelis(directors, comprovadorId);
             break;
         
         default:
+        cout << "Ho sento, no t'he entès." << endl;
             break;
         }
     }

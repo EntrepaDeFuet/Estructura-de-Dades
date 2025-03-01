@@ -33,6 +33,10 @@ string Director::getNom(){
     return this->nom;
 }
 
+vector <Peli> Director::getPelis(){
+    return this->pelis;
+}
+
 void Director::addPeli(int id, int director, int duracio, float puntuacio, string titol){
     Peli peliNova = Peli(id, director, duracio, puntuacio, titol);
     this->pelis.push_back(peliNova);

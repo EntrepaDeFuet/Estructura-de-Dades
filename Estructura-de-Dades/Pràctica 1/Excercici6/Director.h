@@ -31,6 +31,7 @@ class Director
         int getGenere();
         int getDirectorId();
         string getNom();
+        vector <Peli> getPelis();
         int getNumeroDePelis();
 
         //Altres:
