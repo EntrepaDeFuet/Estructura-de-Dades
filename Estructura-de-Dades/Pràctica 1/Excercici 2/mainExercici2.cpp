@@ -8,7 +8,7 @@ email: orioljb1999@gmail.com
 */
 
 int main(){
-
+    // He decidit canviar el array per un vector, doncs proporcionava molta més comoditat de treball.
     vector <string> opcions = {"Sortir","Benvinguda","Redefinir nom"};
 
     string nom;

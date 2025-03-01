@@ -8,6 +8,8 @@ using namespace std;
 /*Autor del codi: Oriol Jiménez Blanco
 Github: EntrepaDeFuet
 email: orioljb1999@gmail.com
+
+Hi ha un comentari més extens al final del document.
 */
 
 // Aquesta funció es per verificar l'entrada que em donen del menú.
@@ -56,7 +58,7 @@ bool directorNoRepetit(vector <Director> &directors, int idActual){
 bool peliRepetida(vector <int> &pelis, int id){
 
     bool repetida=false;
-
+    // Aquest format de cerca amb el for, l'he aplicat a moltes funcions següents
     for (int i = 0; i < pelis.size() && !repetida; i++){
         if (id == pelis[i]){
             repetida = true;
@@ -127,12 +129,12 @@ void afegirDirector(vector <Director> & directors, vector <int> & pelis){
     }
     if (directorNoRepetit(directors,id)){
 
-        cout << "Quin és el seu gènere? (1: Dona, 2: Home, 0: No binari)" << endl;
+        cout << "Quin és el seu gènere? (1: Dona, 2: Home, 0: No binari/No determinat)" << endl;
         cin >> genere;
 
         if (genere <0 || genere > 2 ){
 
-            throw invalid_argument ("El gènere que has escollit no està determinat. ");
+            throw invalid_argument ("El gènere que has escollit no està determinat. S'atribuirà gènere no binari/no determinat. ");
             genere = 0;
         }
 
@@ -168,7 +170,7 @@ void afegirDirector(vector <Director> & directors, vector <int> & pelis){
 
 
 
-
+/*Aquesta funció és un funció no demanada per l'enunciat que complementa el vector de ids de pelis que he comentat al main()*/
 void retirarDeLlista(vector <int> &pelis,int id){
     for (int i = 0; i < pelis.size() && pelis[i] != id; i++){
         if (pelis[i]==id){
@@ -220,7 +222,7 @@ void afegirPeli(vector <Director> & directors, vector <int> & pelis){
         directorId = std::stoi(idString);
     } catch (std::invalid_argument& e){
 
-        cout << "El format de la id no és vàlid. " << endl;
+        cout << "El format de la id no és vàlid. No s'afegirà cap peli." << endl;
         //El return es per a finalitzar la funció. Doncs s'ha introduït una id invàlida.
         return;
 
@@ -410,3 +412,15 @@ int main(){
 
     return 0;
 }
+/*Comentaris finals: La complexitat del programa en el pitjor dels casos es de O(n^2) degut a la funció esborrar director, esmentada anteriorment i esmentat també el motiu
+per el qual existeix i per el qual té aquesta anidació de fors, doncs s'ha de recorrer les pelis del director i després el vector que he incorporat. Si no hagués incorporat 
+el vector d'ids de peli "pelis" aquella funció seria de com a molt O(n) igual que la resta del programa. Ara bé com he comentat abans trobo que és un vector que li dona
+bastant de sentit al programa.
+
+Per altra banda, moltes de les funcions no les he volgut comentar, doncs trobo que eren bastant self-explicatòries i no volia sonar redundant. He fet algunes funcions auxiliars
+més que res per a encapsular el codi i que no quedèssin totxos de text alla esparramat. Per exemple "directorNoRepetit()", "peliRepetida", etc.
+
+També vull comentar les dues funcions d'afegir pelis que es complementen la una a l'altre: "afegirPeli()"  i "afegirPeliDirectorNou", la segona la vaig fer degut a que primer
+vaig fer la funció "afegirDirector()" llavors les dades d'entrada de afegit peli director nou i afegir peli són diferents doncs a peli director nou hi ve la id del director,
+mentre que a afegir peli demana la id del director per tal de verificar que el director en concret existeix. Finalment aquesta última crida a afegir peli director nou, doncs ja té
+la id i ja que les dues funcions fan el mateix doncs no feia falta copiar el codi de nou.*/

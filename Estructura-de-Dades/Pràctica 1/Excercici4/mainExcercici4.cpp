@@ -8,7 +8,7 @@ using namespace std;
 Github: EntrepaDeFuet
 email: orioljb1999@gmail.com
 */
-
+// Funcio feta per controlar les entrades per teclat i evitar bugs.
 int menuTriar(){
 
     string resultat;
@@ -38,7 +38,7 @@ void resumPersones(vector <Estudiant>&  estudiants, vector <Professor>& professo
     }
 }
 
-
+//funció feta per controlar les entrades i evitar bugs.
 char ProfessorVsEstudiant(){
     cout << "Per a afegir un Professor escriu 'P' i per a afegir a un estudiant escriu 'E'. " << endl;
     char sel;

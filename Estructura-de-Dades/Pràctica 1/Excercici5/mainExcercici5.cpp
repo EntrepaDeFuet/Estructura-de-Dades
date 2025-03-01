@@ -10,6 +10,7 @@ Github: EntrepaDeFuet
 email: orioljb1999@gmail.com
 */
 
+// Aquesta funció és per controlar els valors d'entrada del menu i evitar bugs.
 int menuTriar(){
 
     string resultat;
@@ -27,6 +28,7 @@ int menuTriar(){
 
     return sel;
 }
+
 void resumPersones(vector <Estudiant>&  estudiants, vector <Professor>& professors){
     cout << "Lllista d'Estudiants: " << endl;
     for (int i =0 ; i < estudiants.size(); i++){
@@ -38,7 +40,7 @@ void resumPersones(vector <Estudiant>&  estudiants, vector <Professor>& professo
     }
 }
 
-
+//Aquesta és únicament una funció de control per tal de no embrutar gaire el main()
 char ProfessorVsEstudiant(){
     cout << "Per a afegir un Professor escriu 'P' i per a afegir a un estudiant escriu 'E'. " << endl;
     char sel;
