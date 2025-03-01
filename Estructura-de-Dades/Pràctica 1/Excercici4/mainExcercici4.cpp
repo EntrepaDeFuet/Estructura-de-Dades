@@ -4,6 +4,11 @@
 #include "Professor.cpp"
 using namespace std;
 
+/*Autor del codi: Oriol Jiménez Blanco
+Github: EntrepaDeFuet
+email: orioljb1999@gmail.com
+*/
+
 int menuTriar(){
 
     string resultat;

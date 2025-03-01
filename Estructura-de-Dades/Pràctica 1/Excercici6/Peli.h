@@ -1,6 +1,10 @@
 #ifndef PELI_H
 #define PELI_H
 #endif
+/*Autor del codi: Oriol Jiménez Blanco
+Github: EntrepaDeFuet
+email: orioljb1999@gmail.com
+*/
 
 #include <iostream>
 using namespace std;

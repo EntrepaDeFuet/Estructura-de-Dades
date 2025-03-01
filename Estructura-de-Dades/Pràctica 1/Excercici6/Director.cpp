@@ -2,6 +2,10 @@
 #include "Director.h"
 #include <stdexcept>
 using namespace std;
+/*Autor del codi: Oriol Jiménez Blanco
+Github: EntrepaDeFuet
+email: orioljb1999@gmail.com
+*/
 
 Director::Director(int id, int gen, string nom){
     this->setDirectorId(id);
@@ -85,7 +89,7 @@ void Director::print(){
 
     }
 
-    cout << "Nom del director: " << this->getNom() << " Id del director: " << this->getDirectorId() << "Genere del director: " << genere << "Pelis del director: " <<  this->getNumeroDePelis() << endl;
+    cout << "Nom del director: " << this->getNom() << "; Id del director: " << this->getDirectorId() << "; Genere del director: " << genere << "; Pelis del director: " <<  this->getNumeroDePelis() << endl;
     cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
 }
 

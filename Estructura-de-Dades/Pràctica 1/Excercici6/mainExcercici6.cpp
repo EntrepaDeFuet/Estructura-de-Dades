@@ -1,9 +1,14 @@
 #include <iostream>
 #include <stdexcept>
-#include "Peli.cpp"
 #include "Director.cpp"
 #include <fstream>
 using namespace std;
+
+
+/*Autor del codi: Oriol Jiménez Blanco
+Github: EntrepaDeFuet
+email: orioljb1999@gmail.com
+*/
 
 // Aquesta funció es per verificar l'entrada que em donen del menú.
 int triaMenu(){
@@ -24,15 +29,8 @@ int triaMenu(){
 int correctorEntrada(){
 
     int sortida;
-    string entrada;
-    cin >> entrada;
-    //Aquest bloc comprova que no haguem passat un string en comptes d'un int. Igual que menu.
-    try{
-        sortida = std::stoi(entrada);
-    } catch (std::invalid_argument& e){
-        return 0000;
-    }
-    // Aquest altre bloc revisa que no s'enviin Id's negatives.
+    cin >> sortida;
+    // Aquest bloc revisa que no s'enviin Id's negatives.
     if(sortida < 0){
         throw invalid_argument ("No es pot establir una Id com a valor negatiu. S'ha establert la Id per defecte.");
         return 0000;
@@ -55,6 +53,60 @@ bool directorNoRepetit(vector <Director> &directors, int idActual){
     return noRepetit;
 }
 
+bool peliRepetida(vector <int> &pelis, int id){
+
+    bool repetida=false;
+
+    for (int i = 0; i < pelis.size() && !repetida; i++){
+        if (id == pelis[i]){
+            repetida = true;
+        }
+    }
+    return repetida;
+}
+
+void afegirPeliDirectorNou(Director &director, vector <int> &pelis){
+
+    string nom;
+    int durada, id;
+    float valoracio;
+
+    cout << "Quin és el nom de la peli? " << endl;
+    cin >> nom;
+
+    cout << "Quina és la durada en minuts de la peli? " << endl;
+    cin >> durada;
+    
+    if (durada < 0){
+        throw invalid_argument("La duració de la peli no pot ser negativa.");
+        durada = 90;
+    }
+
+    cout << "Quina és la id de la peli? " << endl;
+    cin >> id;
+    if (id<0){
+        throw invalid_argument ("La id de la peli no pot ser negativa. ");
+        id = 0000;
+    }
+    
+    cout << "Quina és la valoració de la peli ?" << endl;
+    cin >> valoracio;
+    if (valoracio < 0 || valoracio > 10){
+        throw invalid_argument ("La valoració ha d'estar entre 0 i 10. ");
+        valoracio = 5.0;
+    }
+    if (peliRepetida(pelis, id)){
+
+        cout << "Ja existeix una peli amb aquesta ID, ho sentim no es pot afegir." << endl;
+
+    } else {
+
+        director.addPeli(id,director.getDirectorId(),durada,valoracio,nom);
+        pelis.push_back(id);
+
+    }
+
+}
 
 void afegirDirector(vector <Director> & directors, vector <int> & pelis){
 
@@ -114,60 +166,8 @@ void afegirDirector(vector <Director> & directors, vector <int> & pelis){
     }
 }
 
-bool peliRepetida(vector <int> &pelis, int id){
 
-    bool repetida=false;
 
-    for (int i = 0; i < pelis.size() && !repetida; i++){
-        if (id == pelis[i]){
-            repetida = true;
-        }
-    }
-    return repetida;
-}
-
-void afegirPeliDirectorNou(Director &director, vector <int> &pelis){
-
-    string nom;
-    int durada, id;
-    float valoracio;
-
-    cout << "Quin és el nom de la peli? " << endl;
-    cin >> nom;
-
-    cout << "Quina és la durada en minuts de la peli? " << endl;
-    cin >> durada;
-    
-    if (durada < 0){
-        throw invalid_argument("La duració de la peli no pot ser negativa.");
-        durada = 90;
-    }
-
-    cout << "Quina és la id de la peli? " << endl;
-    cin >> id;
-    if (id<0){
-        throw invalid_argument ("La id de la peli no pot ser negativa. ");
-        id = 0000;
-    }
-    
-    cout << "Quina és la valoració de la peli ?" << endl;
-    cin >> valoracio;
-    if (valoracio < 0 || valoracio > 10){
-        throw invalid_argument ("La valoració ha d'estar entre 0 i 10. ");
-        valoracio = 5.0;
-    }
-    if (peliRepetida(pelis, id)){
-
-        cout << "Ja existeix una peli amb aquesta ID, ho sentim no es pot afegir." << endl;
-
-    } else {
-
-        director.addPeli(id,director.getDirectorId(),durada,valoracio,nom);
-        pelis.push_back(id);
-
-    }
-
-}
 
 void retirarDeLlista(vector <int> &pelis,int id){
     for (int i = 0; i < pelis.size() && pelis[i] != id; i++){
@@ -254,7 +254,6 @@ void afegirPeli(vector <Director> & directors, vector <int> & pelis){
 
 void imprimirDirectors(vector <Director> & directors){
 
-    string genere;
 
     for (int i = 0; i < directors.size(); i++){
 
@@ -300,6 +299,9 @@ void eliminarDirector (vector <int> & pelis, vector <Director> & directors, int 
     }
     if (existeixDirector){
 
+        cout << "S'eliminarà el següent director: " <<  endl;
+        directors[indexDirector].print();
+
         /*El codi escrit a continuació es fa per extreure les id de les pelis del vector de id's general de pelis. Mencionat al main().
         Pot ser és l'únic punt del programa on la complexitat arriba a O(n^2).*/
         vector <Peli> pelisDirector = directors[indexDirector].getPelis();
@@ -320,7 +322,7 @@ void eliminarDirector (vector <int> & pelis, vector <Director> & directors, int 
 }
 
 int main(){
-
+    //aquests ints els faig servir per a revisar que em passin be les id quan les demano aqui al main en comptes de a les funcions.
     int menu,comprovadorId, comprovadorIdAux;
     bool loop = true;
 
@@ -365,7 +367,9 @@ int main(){
             
             break;
         case 2:
+
             cout << "Digues la Id del director a eliminar siusplau." << endl;
+            comprovadorId = correctorEntrada();
             
             try{
                 eliminarDirector(pelis,directors,comprovadorId);

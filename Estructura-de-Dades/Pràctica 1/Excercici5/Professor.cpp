@@ -1,6 +1,10 @@
 #include <iostream>
 #include "Professor.h"
 #include <stdexcept>
+/*Autor del codi: Oriol Jiménez Blanco
+Github: EntrepaDeFuet
+email: orioljb1999@gmail.com
+*/
 
 using namespace std;
 

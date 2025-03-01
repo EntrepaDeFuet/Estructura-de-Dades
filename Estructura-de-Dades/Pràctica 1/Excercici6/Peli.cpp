@@ -2,6 +2,10 @@
 #include "Peli.h"
 #include <stdexcept>
 using namespace std;
+/*Autor del codi: Oriol Jiménez Blanco
+Github: EntrepaDeFuet
+email: orioljb1999@gmail.com
+*/
 
 
 

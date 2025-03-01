@@ -2,6 +2,11 @@
 #include <vector>
 using namespace std;
 
+/*Autor del codi: Oriol Jiménez Blanco
+Github: EntrepaDeFuet
+email: orioljb1999@gmail.com
+*/
+
 int main(){
 
     vector <string> opcions = {"Sortir","Benvinguda","Redefinir nom"};
